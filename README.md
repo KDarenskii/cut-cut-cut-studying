@@ -1,1 +1,0 @@
-# cut-cut-cut-studying
