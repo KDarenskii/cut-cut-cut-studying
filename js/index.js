@@ -20,6 +20,21 @@ function initGame() {
     board.displayProgress(game.level + 1, game.score);
     canvasController.drawLines(figure.lines);
 
+    let timeInterval;
+
+    timeInterval = setInterval(() => {
+        board.decreaseTime();
+
+        const { status, message } = checkFinish();
+
+        if (status !== GAME_STATUSES.PLAYING) {
+            clearInterval(timeInterval);
+            handleResult(status, message);
+        }
+
+        board.displayProgress(game.level + 1, game.score);
+    }, 1000);
+
     canvas.addEventListener("mousedown", function (event) {
         if (!canvasController.isDrawing) {
             canvasController.drawStartPoint.x =
@@ -68,48 +83,13 @@ function initGame() {
 
             board.updateProgress(canvasController.lines);
 
-            const result = game.checkFinish({
-                linesCount: board.linesCount,
-                linesLimit: board.linesLimit,
-                figuresCount: board.figuresCount,
-                figuresLimit: board.figuresLimit,
-                time: board.time,
-            });
+            const result = checkFinish();
 
             const { status, message } = result;
 
-            if (result !== GAME_STATUSES.LOSE) {
-                if (isValid) {
-                    game.increaseScore(board.time);
-                }
+            if (isValid) {
+                handleResult(status, message);
             }
-
-            if (status !== GAME_STATUSES.PLAYING) {
-                game.displayResult(status, message);
-            }
-
-            if (status === GAME_STATUSES.WIN) {
-                game.increaseLevel();
-                const nextButton = document.querySelector(
-                    "[data-next-level-btn]"
-                );
-                nextButton.addEventListener("click", initGame);
-            }
-
-            if (
-                status === GAME_STATUSES.COMPLETE ||
-                status === GAME_STATUSES.LOSE
-            ) {
-                saveResult({
-                    date: game.startDate,
-                    durationMs: game.endTimeMs - game.startTimeMs,
-                    username: game.username,
-                    score: game.score,
-                    result: status,
-                });
-            }
-
-            board.displayProgress(game.level + 1, game.score);
         }
     });
 
@@ -128,4 +108,46 @@ function initGame() {
     });
 
     canvasController.drawAddedLines();
+
+    function handleResult(status, message) {
+        if (status !== GAME_STATUSES.LOSE) {
+            game.increaseScore(board.time);
+        }
+
+        if (status !== GAME_STATUSES.PLAYING) {
+            clearInterval(timeInterval);
+            game.displayResult(status, message);
+        }
+
+        if (status === GAME_STATUSES.WIN) {
+            game.increaseLevel();
+            const nextButton = document.querySelector("[data-next-level-btn]");
+            nextButton.addEventListener("click", initGame);
+        }
+
+        if (
+            status === GAME_STATUSES.COMPLETE ||
+            status === GAME_STATUSES.LOSE
+        ) {
+            saveResult({
+                date: game.startDate,
+                durationMs: game.endTimeMs - game.startTimeMs,
+                username: game.username,
+                score: game.score,
+                result: status,
+            });
+        }
+
+        board.displayProgress(game.level + 1, game.score);
+    }
+
+    function checkFinish() {
+        return game.checkFinish({
+            linesCount: board.linesCount,
+            linesLimit: board.linesLimit,
+            figuresCount: board.figuresCount,
+            figuresLimit: board.figuresLimit,
+            time: board.time,
+        });
+    }
 }

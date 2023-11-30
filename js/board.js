@@ -4,7 +4,11 @@ class Board {
         this.linesLimit = difficulty === DIFFICULTY.NORMAL ? 4 : 5;
         this.figuresCount = 1;
         this.figuresLimit = difficulty === DIFFICULTY.NORMAL ? 8 : 10;
-        this.time = 59;
+        this.time = difficulty === DIFFICULTY.NORMAL ? 59 : 35;
+    }
+
+    decreaseTime() {
+        this.time--;
     }
 
     updateProgress(lines) {
@@ -76,7 +80,7 @@ class Board {
 
         scoreElement.innerHTML = `${this.figuresCount} / ${this.figuresLimit}`;
         cutsElement.innerHTML = `${this.linesCount} / ${this.linesLimit}`;
-        timeElement.innerHTML = `00:${this.time--}`;
+        timeElement.innerHTML = `00:${this.time < 10 ? "0" : ""}${this.time}`;
         levelElement.innerHTML = `${level} / ${levels.length}`;
         pointsElement.innerHTML = score;
     }
