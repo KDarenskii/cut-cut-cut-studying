@@ -15,6 +15,6 @@ function handleSubmit(event) {
     difficulty = difficultyValue;
     username = nameValue;
 
-    const url = window.origin + "/game.html";
+    const url = window.origin + "/cut-cut-cut-studying/game.html";
     window.location.href = `${url}?difficulty=${difficulty}&username=${username}`;
 }
