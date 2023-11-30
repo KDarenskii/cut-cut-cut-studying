@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>CUT-CUT-CUT</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="styles.css" />
+        <script src="./js/game.js" defer></script>
+        <script src="./js/game-settings.js" defer></script>
+    </head>
+    <body>
+        <div class="page">
+            <div>
+                <h1 class="main-heading">CUT-CUT-CUT</h1>
+                <form class="settings-form" data-form-settings>
+                    <label class="settings-label">
+                        <span>Введите ваше имя:</span>
+                        <input
+                            class="name-input"
+                            name="name"
+                            placeholder="Имя"
+                            value="User"
+                            type="text"
+                        />
+                    </label>
+                    <div class="settings-label">
+                        <span>Выберите сложность:</span>
+                        <div>
+                            <label class="radio-wrapper">
+                                <input
+                                    class="settings-radio"
+                                    type="radio"
+                                    name="difficulty"
+                                    value="NORMAL"
+                                    checked
+                                />
+                                <span>Нормально</span>
+                            </label>
+                            <label class="radio-wrapper">
+                                <input
+                                    class="settings-radio"
+                                    type="radio"
+                                    name="difficulty"
+                                    value="HARD"
+                                />
+                                <span>Сложно</span>
+                            </label>
+                        </div>
+                    </div>
+                    <button
+                        class="start-link settings-start-link"
+                        type="submit"
+                    >
+                        Начать
+                    </button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
