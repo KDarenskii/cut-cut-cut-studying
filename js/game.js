@@ -5,19 +5,23 @@ class Game {
         this.level = 0;
         this.isEnd = false;
         this.score = 0;
+        this.startTimeMs = Date.now();
+        this.endTimeMs = Date.now();
+        this.startDate = new Date().toLocaleDateString();
     }
 
     increaseScore(time) {
         const difficultyRatio =
-            this.difficulty === DIFFICULTY.NORMAL ? 0.25 : 1;
+            this.difficulty === DIFFICULTY.NORMAL ? 0.25 : 0.5;
         const timeRatio = 1 - (60 - time) / 100;
-        this.score += Math.round(20 * difficultyRatio * timeRatio);
+        this.score += Math.round(10 + 10 * difficultyRatio * timeRatio);
     }
 
     increaseLevel() {
         this.level++;
         if (this.level === levels.length - 1) {
             this.isEnd = true;
+            this.endTimeMs = Date.now();
         }
     }
 

@@ -45,6 +45,8 @@ function initGame() {
                 drownedLine
             );
 
+            const isValid = intersectionsList.length === 2;
+
             if (intersectionsList.length === 2) {
                 const [p1, p2] = intersectionsList;
                 const newLine = {
@@ -77,7 +79,9 @@ function initGame() {
             const { status, message } = result;
 
             if (result !== GAME_STATUSES.LOSE) {
-                game.increaseScore(board.time);
+                if (isValid) {
+                    game.increaseScore(board.time);
+                }
             }
 
             if (status !== GAME_STATUSES.PLAYING) {
@@ -92,8 +96,17 @@ function initGame() {
                 nextButton.addEventListener("click", initGame);
             }
 
-            if (status === GAME_STATUSES.COMPLETE) {
-                console.log("Игра окончена, досвидания");
+            if (
+                status === GAME_STATUSES.COMPLETE ||
+                status === GAME_STATUSES.LOSE
+            ) {
+                saveResult({
+                    date: game.startDate,
+                    durationMs: game.endTimeMs - game.startTimeMs,
+                    username: game.username,
+                    score: game.score,
+                    result: status,
+                });
             }
 
             board.displayProgress(game.level + 1, game.score);
