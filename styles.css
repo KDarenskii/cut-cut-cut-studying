@@ -7,9 +7,16 @@ body {
 }
 
 body {
-    background: linear-gradient(to bottom, #2c3e50, #766bc6);
-    font-family: "Montserrat", sans-serif;
+    background: #4e54c8;
+    background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
+    font-family: 'Exo 2', sans-serif;
     letter-spacing: 1px;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
 .page {
@@ -24,6 +31,11 @@ body {
     margin: 0 auto;
     width: 200px;
     height: 200px;
+}
+
+.game-container {
+    max-width: 802px;
+    margin: 0 auto;
 }
 
 .game-wrapper {
@@ -260,7 +272,7 @@ canvas {
 }
 
 .history-title {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .history-back-link {
@@ -271,9 +283,12 @@ canvas {
     text-decoration: none;
 }
 
-table {
+.history-container {
     max-width: 900px;
     margin: 0 auto;
+}
+
+table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
