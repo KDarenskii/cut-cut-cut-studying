@@ -2,7 +2,10 @@ class Game {
     constructor(difficulty, username) {
         this.difficulty = difficulty;
         this.username = username;
+        this.playedLevels = [];
+        this.maxLevel = 5;
         this.level = 0;
+        this.figureIndex = 0;
         this.isEnd = false;
         this.score = 0;
         this.startTimeMs = Date.now();
@@ -17,12 +20,31 @@ class Game {
         this.score += Math.round(10 + 10 * difficultyRatio * timeRatio);
     }
 
+    getFigurePoints() {
+        const randIndex = this.getRandFigureIndex();
+
+        this.figureIndex = randIndex;
+        this.playedLevels.push(randIndex);
+
+        return levels[randIndex].points;
+    }
+
     increaseLevel() {
         this.level++;
-        if (this.level === levels.length - 1) {
+
+        if (this.level === this.maxLevel - 1) {
             this.isEnd = true;
             this.endTimeMs = Date.now();
         }
+    }
+
+    getRandFigureIndex() {
+        let randIndex = Math.floor(Math.random() * levels.length);
+        while (this.playedLevels.includes(randIndex)) {
+            randIndex = Math.floor(Math.random() * levels.length);
+        }
+
+        return randIndex;
     }
 
     checkFinish(progress) {

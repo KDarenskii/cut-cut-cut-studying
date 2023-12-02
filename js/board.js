@@ -81,7 +81,7 @@ class Board {
         scoreElement.innerHTML = `${this.figuresCount} / ${this.figuresLimit}`;
         cutsElement.innerHTML = `${this.linesCount} / ${this.linesLimit}`;
         timeElement.innerHTML = `00:${this.time < 10 ? "0" : ""}${this.time}`;
-        levelElement.innerHTML = `${level} / ${levels.length}`;
+        levelElement.innerHTML = `${level} / ${5}`;
         pointsElement.innerHTML = score;
     }
 }

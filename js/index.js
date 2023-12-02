@@ -14,7 +14,7 @@ function initGame() {
     const canvasController = new Canvas();
     const canvas = canvasController.getCanvas();
 
-    const figure = new Figure(levels[game.level].points);
+    const figure = new Figure(game.getFigurePoints());
     const board = new Board(difficulty);
 
     board.displayProgress(game.level + 1, game.score);
@@ -116,13 +116,33 @@ function initGame() {
 
         if (status !== GAME_STATUSES.PLAYING) {
             clearInterval(timeInterval);
-            game.displayResult(status, message);
-        }
 
-        if (status === GAME_STATUSES.WIN) {
-            game.increaseLevel();
-            const nextButton = document.querySelector("[data-next-level-btn]");
-            nextButton.addEventListener("click", initGame);
+            if (status === GAME_STATUSES.WIN) {
+                const canvas = document.querySelector("canvas");
+                canvas.classList.add("scale");
+                setTimeout(() => {
+                    game.displayResult(status, message);
+                    game.increaseLevel();
+                    const nextButton = document.querySelector(
+                        "[data-next-level-btn]"
+                    );
+                    nextButton.addEventListener("click", initGame);
+                }, 1000);
+            } else if (status === GAME_STATUSES.COMPLETE) {
+                const canvas = document.querySelector("canvas");
+                canvas.classList.add("scale");
+                setTimeout(() => {
+                    game.displayResult(status, message);
+                }, 1000);
+            } else if (status === GAME_STATUSES.LOSE) {
+                const canvas = document.querySelector("canvas");
+                canvas.classList.add("shake");
+                setTimeout(() => {
+                    game.displayResult(status, message);
+                }, 500);
+            } else {
+                game.displayResult(status, message);
+            }
         }
 
         if (
