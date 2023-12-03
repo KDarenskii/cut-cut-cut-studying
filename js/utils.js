@@ -26,3 +26,26 @@ function formatMs(milliseconds) {
 
     return `${minutes}:${seconds}`;
 }
+
+function setDarkTheme() {
+    const body = document.body;
+    body.classList.add("dark-theme");
+    localStorage.setItem("theme", "dark");
+}
+
+function removeDarkTheme() {
+    const body = document.body;
+    body.classList.remove("dark-theme");
+    localStorage.setItem("theme", "light");
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const savedTheme = localStorage.getItem("theme");
+    const body = document.body;
+
+    if (savedTheme === "dark") {
+        body.classList.add("dark-theme");
+    } else {
+        body.classList.remove("dark-theme");
+    }
+});

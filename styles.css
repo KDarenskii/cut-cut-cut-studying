@@ -1,16 +1,27 @@
+:root {
+    --bg-color: #4e54c8;
+    --bg-gradient: linear-gradient(to left, #8f94fb, #4e54c8);
+    --text-color: #ffffff;
+}
+
 html,
 body {
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden;
 }
 
 body {
-    background: #4e54c8;
-    background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
+    background: var(--bg-color);
+    background: var(--bg-gradient);
+    color: var(--text-color);
     font-family: "Exo 2", sans-serif;
     letter-spacing: 1px;
+}
+
+body.dark-theme {
+    background: #333;
+    background: linear-gradient(to left, #333, #151313);
 }
 
 ul {
@@ -176,6 +187,7 @@ canvas.shake {
     margin: 0;
     padding: 0;
     gap: 20px;
+    margin-bottom: 10px;
 }
 
 .menu-item {
@@ -217,6 +229,34 @@ canvas.shake {
 
 .menu-link:hover {
     text-decoration: underline;
+}
+
+.theme-title {
+    font-size: 21px;
+    color: var(--text-color);
+    margin: 0;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.theme-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.theme-item {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    border-radius: 10px;
+    border: 1px solid #fff;
+    background-color: #4e54c8;
+}
+
+.theme-item--dark {
+    background-color: #333;
 }
 
 .rules-wrapper {
